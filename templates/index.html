@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whisper Transcription App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Whisper Transcription App</h1>
+        <form action="{{ url_for('transcribe_audio') }}" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept="audio/*">
+            <button type="submit">Transcribe</button>
+        </form>
+        {% if transcription %}
+        <h2>Transcription</h2>
+        <p>{{ transcription }}</p>
+        <audio controls>
+            <source src="{{ url_for('static', filename=audio_file) }}" type="audio/wav">
+            Your browser does not support the audio element.
+        </audio>
+        {% endif %}
+    </div>
+</body>
+</html>
