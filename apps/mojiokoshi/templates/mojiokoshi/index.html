@@ -9,6 +9,7 @@
 <h1 id="subtitle">Whisper Transcription App</h1>
 <body>
     <div class="container">
+<<<<<<< HEAD:templates/index.html
         <div id="select_file">
             <h1 id="subtitle_1">動画または音声ファイルを指定してください</h1>
             <form action="{{ url_for('transcribe_audio') }}" method="post" enctype="multipart/form-data">
@@ -17,6 +18,14 @@
             </form>
         </div>
         <div id="result">
+=======
+        <h1>Whisper Transcription App</h1>
+        <form action="{{ url_for('mojiokoshi.transcribe_audio') }}" method="post" enctype="multipart/form-data">
+            {{ form.csrf_token }}
+            <input type="file" name="file" accept="audio/*">
+            <button type="submit">Transcribe</button>
+        </form>
+>>>>>>> 35003e6bcd0a263c4c9f5406329cdf575c1c3384:apps/mojiokoshi/templates/mojiokoshi/index.html
         {% if transcription %}
         <h2 id="subtitle_2">Transcription</h2>
         <p id="text">{{ transcription }}</p>
