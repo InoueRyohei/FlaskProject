@@ -13,6 +13,15 @@
 <body>
     <div class="container">
         <h1>Transcription History</h1>
+        <a href="{{ url_for('auth.login') }}">ログイン</a>
+        {% if current_user.is_authenticated %}
+            <p>
+                <span>{{ current_user.username }}</span> -
+                <span><a href="{{ url_for('auth.logout') }}">ログアウト</a></span>
+            </p>
+            <br>
+            <a href="{{ url_for('mojiokoshi.index') }}">文字起こし</a>
+        {% endif %}
         <table>
             <tr>
                 <th>Audio File</th>
