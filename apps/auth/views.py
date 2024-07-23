@@ -11,9 +11,9 @@ auth = Blueprint(
     static_folder="static"
 )
 
-@auth.route("/")
-def index():
-    return render_template("auth/index.html")
+# @auth.route("/")
+# def index():
+#     return render_template("auth/index.html")
 
 @auth.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -41,7 +41,7 @@ def signup():
     
     return render_template("auth/signup.html", form=form)
 
-@auth.route("/login", methods=["GET", "POST"])
+@auth.route("/", methods=["GET", "POST"])
 def login():
     form = LoginForm()
     if form.validate_on_submit():

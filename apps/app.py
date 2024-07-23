@@ -56,7 +56,7 @@ def create_app(config_key):
 
     from apps.auth import views as auth_views
 
-    app.register_blueprint(auth_views.auth, url_prefix="/auth")
+    app.register_blueprint(auth_views.auth, url_prefix="/")
 
     from apps.mojiokoshi import views as mojiokoshi_views
 

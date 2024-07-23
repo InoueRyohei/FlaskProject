@@ -49,7 +49,7 @@ def create_user():
         return redirect(url_for("crud.users"))
     return render_template("crud/create.html", form=form)
 
-@crud.route("/users")
+@crud.route("/")
 @login_required
 def users():
     """ユーザーの一覧を取得する"""
