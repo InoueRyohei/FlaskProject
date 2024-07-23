@@ -1,27 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Whisper Transcription App</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="../static/style.css">
 </head>
+<h1 id="subtitle">Whisper Transcription App</h1>
 <body>
     <div class="container">
-        <h1>Whisper Transcription App</h1>
+        <div id="select_file">
+            <h1 id="subtitle_1">動画または音声ファイルを指定してください</h1>
+            <form action="{{ url_for('mojiokoshi.transcribe_audio') }}" method="post" enctype="multipart/form-data">
+                {{ form.csrf_token }}
+                <input type="file" name="file" accept="audio/*">
+                <button type="submit">実行</button>
+            </form>
+        </div>
+        <div id="result">
+        <!-- <h1>Whisper Transcription App</h1>
         <form action="{{ url_for('mojiokoshi.transcribe_audio') }}" method="post" enctype="multipart/form-data">
             {{ form.csrf_token }}
             <input type="file" name="file" accept="audio/*">
             <button type="submit">Transcribe</button>
-        </form>
+        </form> -->
         {% if transcription %}
-        <h2>Transcription</h2>
-        <p>{{ transcription }}</p>
+        <h2 id="subtitle_2">Transcription</h2>
+        <p id="text">{{ transcription }}</p>
         <audio controls>
             <source src="{{ url_for('static', filename=audio_file) }}" type="audio/wav">
             Your browser does not support the audio element.
         </audio>
         {% endif %}
+        </div>
     </div>
 </body>
 </html>
