@@ -23,8 +23,6 @@ login_manager.login_message = ""
 def create_app(config_key):
     # Flaskインスタンス生成
     app = Flask(__name__)
-    # コンフィグを.envから読み込む
-    # app.config.from_envvar("APPLICATION_SETTINGS")
 
     # config_keyにマッチする環境のコンフィグクラスを読み込む
     app.config.from_object(config[config_key])

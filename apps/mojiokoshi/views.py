@@ -5,7 +5,7 @@ from pydub.utils import which
 import os
 
 from apps.crud.forms import UserForm
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint
 # dbをimportする
 from apps.app import db
 # Userクラスをimportする
@@ -18,6 +18,20 @@ model = whisper.load_model("base")
 # Pydub の設定
 AudioSegment.converter = which("ffmpeg")
 
+# データベースのモデル定義
+class Transcription(db.Model):
+    __tablename__ = "transcription"
+    id = db.Column(db.Integer, primary_key=True)
+    audio_file = db.Column(db.String(200), nullable=False)
+    transcription = db.Column(db.Text, nullable=False)
+
+    def __repr__(self):
+        return f'<Transcription {self.id}>'
+
+# データベースの初期化
+# with mojiokoshi.app_context():
+#     db.create_all()
+
 # Blueprintでmojiokoshiアプリを生成する
 mojiokoshi = Blueprint(
     "mojiokoshi",
@@ -25,6 +39,9 @@ mojiokoshi = Blueprint(
     template_folder="templates",
     static_folder="static",
 )
+# データベースの初期化
+# with mojiokoshi.app_context():
+#     db.create_all()
 
 @login_required
 def index():
@@ -58,9 +75,20 @@ def transcribe_audio():
         
         # Transcribe the audio file
         result = model.transcribe(file_path)
-        transcription = result["text"]
+        transcription_text = result["text"]
+
+        # データベースに保存
+        transcription_entry = Transcription(audio_file=file_path, transcription=transcription_text)
+        db.session.add(transcription_entry)
+        db.session.commit()
         
-        return render_template('mojiokoshi/index.html', transcription=transcription, audio_file=file_path, form=form)
+        return render_template('mojiokoshi/index.html', transcription=transcription_text, audio_file=file_path, form=form)
+
+@mojiokoshi.route('/history')
+@login_required
+def history():
+    transcriptions = Transcription.query.all()
+    return render_template('mojiokoshi/history.html', transcriptions=transcriptions)
 
 if __name__ == '__main__':
     app.run(debug=True)
