@@ -26,20 +26,20 @@ mojiokoshi = Blueprint(
     static_folder="static",
 )
 
-# @login_required
-# def index():
-#     return render_template("crud/index.html")
+@login_required
+def index():
+    return render_template("crud/index.html")
 
 # indexエンドポイントを作成しindex.htmlを返す
 @mojiokoshi.route("/")
-# @login_required
+@login_required
 def index():
     form = UserForm()
     return render_template("mojiokoshi/index.html", form=form)
 
 
 @mojiokoshi.route('/transcribe', methods=['POST'])
-# @login_required
+@login_required
 def transcribe_audio():
     # UserFormをインスタンス化する
     form = UserForm()
