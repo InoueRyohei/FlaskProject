@@ -39,10 +39,10 @@
         {% if transcription %}
         <h2 id="subtitle_2">Transcription</h2>
         <p id="text">{{ transcription }}</p>
-        <audio controls>
-            <source src="{{ url_for('static', filename=audio_file) }}" type="audio/wav">
-            Your browser does not support the audio element.
-        </audio>
+        <!-- <audio controls> -->
+            <!-- <source src="{{ url_for('static', filename=audio_file) }}" type="audio/wav"> -->
+            <!-- Your browser does not support the audio element. -->
+        <!-- </audio> -->
         {% endif %}
         </div>
     </div>
