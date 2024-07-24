@@ -12,8 +12,6 @@
 
 <body>
     <div class="container">
-        <h1>Transcription History</h1>
-        <a href="{{ url_for('auth.login') }}">ログイン</a>
         {% if current_user.is_authenticated %}
             <p>
                 <span>{{ current_user.username }}</span> -
@@ -21,7 +19,11 @@
             </p>
             <br>
             <a href="{{ url_for('mojiokoshi.index') }}">文字起こし</a>
+        {% else %}
+            <a href="{{ url_for('auth.login') }}">ログイン</a>
+            <a href="{{ url_for('auth.signup') }}">サインアップ</a>
         {% endif %}
+        <h1>Transcription History</h1>
         <table>
             <tr>
                 <th>Audio File</th>

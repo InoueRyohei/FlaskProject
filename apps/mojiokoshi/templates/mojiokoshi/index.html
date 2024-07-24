@@ -6,6 +6,17 @@
     <title>Whisper Transcription App</title>
     <link rel="stylesheet" href="../static/style.css">
 </head>
+{% if current_user.is_authenticated %}
+    <p>
+        <span>{{ current_user.username }}</span> -
+        <span><a href="{{ url_for('auth.logout') }}">ログアウト</a></span>
+    </p>
+    <br>
+    <a href="{{ url_for('mojiokoshi.index') }}">文字起こし</a>
+{% else %}
+    <a href="{{ url_for('auth.login') }}">ログイン</a>
+    <a href="{{ url_for('auth.signup') }}">サインアップ</a>
+{% endif %}
 <h1 id="subtitle">Whisper Transcription App</h1>
 <body>
     <a href="{{ url_for('mojiokoshi.history') }}">history</a>
