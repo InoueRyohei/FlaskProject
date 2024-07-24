@@ -8,14 +8,16 @@
 
     <body>
         <div>
-            <a href="{{ url_for('auth.login') }}">ログイン</a>
             {% if current_user.is_authenticated %}
             <p>
                 <span>{{ current_user.username }}</span> -
                 <span><a href="{{ url_for('auth.logout') }}">ログアウト</a></span>
             </p>
             <br>
-            <a href="{{ url_for('mojiokoshi.index') }}">文字起こし</a>
+                <a href="{{ url_for('mojiokoshi.index') }}">文字起こし</a>
+            {% else %}
+                <a href="{{ url_for('auth.login') }}">ログイン</a>
+                <a href="{{ url_for('auth.signup') }}">サインアップ</a>
             {% endif %}
         </div>
         <!-- contentを継承先で実装する -->
